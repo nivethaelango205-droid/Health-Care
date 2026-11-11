@@ -1,0 +1,8 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Actual appointment PDF | RuralCare 360</title><style>
+body{margin:0;background:#e8eff5;color:#123047;font:18px Arial,sans-serif}header{padding:20px 40px;background:#102b40;color:white;display:flex;justify-content:space-between}main{padding:24px;display:flex;justify-content:center}canvas{background:white;box-shadow:0 4px 20px #12304733}small{color:#8be1d3}#state{margin:30px;text-align:center}
+</style></head><body><header><b>RuralCare 360 · Downloaded appointment confirmation</b><small>Actual server-generated PDF</small></header><p id="state">Opening the downloaded PDF…</p><main><canvas id="pdf"></canvas></main>
+<script type="module">
+import * as pdfjs from '/.tools/recording/node_modules/pdfjs-dist/build/pdf.mjs';
+pdfjs.GlobalWorkerOptions.workerSrc='/.tools/recording/node_modules/pdfjs-dist/build/pdf.worker.mjs';
+try{const name=new URLSearchParams(location.search).get('file');if(!/^Appointment_[A-Za-z0-9_-]+\.pdf$/.test(name))throw new Error('Invalid PDF path');const doc=await pdfjs.getDocument({url:new URL('/demo-recordings/'+name,location.origin).href}).promise;const page=await doc.getPage(1);const viewport=page.getViewport({scale:1.1});const canvas=document.getElementById('pdf');canvas.width=viewport.width;canvas.height=viewport.height;await page.render({canvasContext:canvas.getContext('2d'),viewport}).promise;document.getElementById('state').remove();document.body.dataset.pdfReady='true';}catch(error){document.getElementById('state').textContent='PDF could not be opened: '+error.message;}
+</script></body></html>

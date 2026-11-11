@@ -1,0 +1,26 @@
+.tools/
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+*.log
+*.pid
+*.tsbuildinfo
+*.wav
+screenshots/
+scratch/chrome_*/
+
+# Generated recordings and verification output; retain source files.
+demo-recordings/*
+!demo-recordings/*.html
+!demo-recordings/*.js
+!demo-recordings/*.mjs
+!demo-recordings/*.cjs
+!demo-recordings/*.py
+!demo-recordings/*.ps1
+
+# Local application data and test output.
+server/data/*
+!server/data/.gitkeep
+server/test-results/
